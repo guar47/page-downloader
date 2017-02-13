@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html prefix='og: http://ogp.me/ns#'>
+<head>
+<script type="text/javascript">var _rollbarConfig = {"accessToken":"ffe1d429465e4a398dbb4a64d10b923b","captureUncaught":true,"payload":{"client":{"source_map_enabled":true,"code_version":null,"guess_uncaught_frames":true},"environment":"production"}};</script>
+<script type="text/javascript">!function(r){function e(t){if(o[t])return o[t].exports;var n=o[t]={exports:{},id:t,loaded:!1};return r[t].call(n.exports,n,n.exports,e),n.loaded=!0,n.exports}var o={};return e.m=r,e.c=o,e.p="",e(0)}([function(r,e,o){"use strict";var t=o(1).Rollbar,n=o(2);_rollbarConfig.rollbarJsUrl=_rollbarConfig.rollbarJsUrl||"https://d37gvrvc0wt4s1.cloudfront.net/js/v1.9/rollbar.min.js";var a=t.init(window,_rollbarConfig),i=n(a,_rollbarConfig);a.loadFull(window,document,!_rollbarConfig.async,_rollbarConfig,i)},function(r,e){"use strict";function o(r){return function(){try{return r.apply(this,arguments)}catch(e){try{console.error("[Rollbar]: Internal error",e)}catch(o){}}}}function t(r,e,o){window._rollbarWrappedError&&(o[4]||(o[4]=window._rollbarWrappedError),o[5]||(o[5]=window._rollbarWrappedError._rollbarContext),window._rollbarWrappedError=null),r.uncaughtError.apply(r,o),e&&e.apply(window,o)}function n(r){var e=function(){var e=Array.prototype.slice.call(arguments,0);t(r,r._rollbarOldOnError,e)};return e.belongsToShim=!0,e}function a(r){this.shimId=++c,this.notifier=null,this.parentShim=r,this._rollbarOldOnError=null}function i(r){var e=a;return o(function(){if(this.notifier)return this.notifier[r].apply(this.notifier,arguments);var o=this,t="scope"===r;t&&(o=new e(this));var n=Array.prototype.slice.call(arguments,0),a={shim:o,method:r,args:n,ts:new Date};return window._rollbarShimQueue.push(a),t?o:void 0})}function l(r,e){if(e.hasOwnProperty&&e.hasOwnProperty("addEventListener")){var o=e.addEventListener;e.addEventListener=function(e,t,n){o.call(this,e,r.wrap(t),n)};var t=e.removeEventListener;e.removeEventListener=function(r,e,o){t.call(this,r,e&&e._wrapped?e._wrapped:e,o)}}}var c=0;a.init=function(r,e){var t=e.globalAlias||"Rollbar";if("object"==typeof r[t])return r[t];r._rollbarShimQueue=[],r._rollbarWrappedError=null,e=e||{};var i=new a;return o(function(){if(i.configure(e),e.captureUncaught){i._rollbarOldOnError=r.onerror,r.onerror=n(i);var o,a,c="EventTarget,Window,Node,ApplicationCache,AudioTrackList,ChannelMergerNode,CryptoOperation,EventSource,FileReader,HTMLUnknownElement,IDBDatabase,IDBRequest,IDBTransaction,KeyOperation,MediaController,MessagePort,ModalWindow,Notification,SVGElementInstance,Screen,TextTrack,TextTrackCue,TextTrackList,WebSocket,WebSocketWorker,Worker,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload".split(",");for(o=0;o<c.length;++o)a=c[o],r[a]&&r[a].prototype&&l(i,r[a].prototype)}return e.captureUnhandledRejections&&(i._unhandledRejectionHandler=function(r){var e=r.reason,o=r.promise,t=r.detail;!e&&t&&(e=t.reason,o=t.promise),i.unhandledRejection(e,o)},r.addEventListener("unhandledrejection",i._unhandledRejectionHandler)),r[t]=i,i})()},a.prototype.loadFull=function(r,e,t,n,a){var i=function(){var e;if(void 0===r._rollbarPayloadQueue){var o,t,n,i;for(e=new Error("rollbar.js did not load");o=r._rollbarShimQueue.shift();)for(n=o.args,i=0;i<n.length;++i)if(t=n[i],"function"==typeof t){t(e);break}}"function"==typeof a&&a(e)},l=!1,c=e.createElement("script"),d=e.getElementsByTagName("script")[0],p=d.parentNode;c.crossOrigin="",c.src=n.rollbarJsUrl,c.async=!t,c.onload=c.onreadystatechange=o(function(){if(!(l||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState)){c.onload=c.onreadystatechange=null;try{p.removeChild(c)}catch(r){}l=!0,i()}}),p.insertBefore(c,d)},a.prototype.wrap=function(r,e){try{var o;if(o="function"==typeof e?e:function(){return e||{}},"function"!=typeof r)return r;if(r._isWrap)return r;if(!r._wrapped){r._wrapped=function(){try{return r.apply(this,arguments)}catch(e){throw e._rollbarContext=o()||{},e._rollbarContext._wrappedSource=r.toString(),window._rollbarWrappedError=e,e}},r._wrapped._isWrap=!0;for(var t in r)r.hasOwnProperty(t)&&(r._wrapped[t]=r[t])}return r._wrapped}catch(n){return r}};for(var d="log,debug,info,warn,warning,error,critical,global,configure,scope,uncaughtError,unhandledRejection".split(","),p=0;p<d.length;++p)a.prototype[d[p]]=i(d[p]);r.exports={Rollbar:a,_rollbarWindowOnError:t}},function(r,e){"use strict";r.exports=function(r,e){return function(o){if(!o&&!window._rollbarInitialized){var t=window.RollbarNotifier,n=e||{},a=n.globalAlias||"Rollbar",i=window.Rollbar.init(n,r);i._processShimQueue(window._rollbarShimQueue||[]),window[a]=i,window._rollbarInitialized=!0,t.processPayloads()}}}}]);</script>
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://ru.hexlet.io/lessons.rss" />
+<link rel="stylesheet" media="all" href="https://cdn2.hexlet.io/assets/application-f7ef9ab40200773689e703b1cc34e56ab0ad811a10a652f9b9d4e5dacc71f43a.css" />
+<title>Курсы - Hexlet.io</title>
+<link rel="shortcut icon" type="image/x-icon" href="https://cdn2.hexlet.io/assets/icons/default/favicon-8fa102c058afb01de5016a155d7db433283dc7e08ddc3c4d1aef527c1b8502b6.ico" />
+<link rel="shortcut icon" type="image/png" href="https://cdn2.hexlet.io/assets/icons/default/favicon-196x196-422632c0ef41e9b13dd7ea89f1764e860d225ca3c20502b966a00c0039409a75.png" sizes="196x196" />
+<link rel="shortcut icon" type="image/png" href="https://cdn2.hexlet.io/assets/icons/default/favicon-96x96-39f08613bbf8b826ce119c3b6bc232db10c863c168d57b180f78d18cadf843c6.png" sizes="96x96" />
+<link rel="shortcut icon" type="image/png" href="https://cdn2.hexlet.io/assets/icons/default/favicon-32x32-2bae33d5d827199a252cd9309926586f01044782f3c83e3ffaf783bb318707a2.png" sizes="32x32" />
+<link rel="shortcut icon" type="image/png" href="https://cdn2.hexlet.io/assets/icons/default/favicon-16x16-cc9a0ab442a9dcba7e70fb733f58691955a2d1608fe439a5eed2afab400eb719.png" sizes="16x16" />
+<link rel="shortcut icon" type="image/png" href="https://cdn2.hexlet.io/assets/icons/default/favicon-128-a9446dd4e081479874e0c59b63960612d181b05b10b2fbd544a7da7c5f6ead2a.png" sizes="128x128" />
+<link rel="shortcut icon" type="image/png" href="https://cdn2.hexlet.io/assets/icons/default/android-icon-192x192-d4b29b393f0ec444bed29668e9b4b16aeb0a9c5312700e4f0819a96f72286cfc.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="https://cdn2.hexlet.io/assets/icons/default/apple-touch-icon-57x57-f52e49208ae173f740c8f115217781975b78433b1fda469ec28ce70b92fc013e.png" sizes="57x57" />
+<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="https://cdn2.hexlet.io/assets/icons/default/apple-touch-icon-114x114-c93f5c2681345acc94f672dc26dd79695eac733a3ac6f99ab3b0fbfa077d834e.png" sizes="114x114" />
+<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="https://cdn2.hexlet.io/assets/icons/default/apple-touch-icon-72x72-27e1216e0a1b806d82b8ca649081eacf5b3f59b677b44c8e40eae30e83f90294.png" sizes="72x72" />
+<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="https://cdn2.hexlet.io/assets/icons/default/apple-touch-icon-144x144-1f4fb8973826b06c9595101aac7f78fdb9bf26c3b769b759882ad319d58b17fd.png" sizes="144x144" />
+<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="https://cdn2.hexlet.io/assets/icons/default/apple-touch-icon-60x60-08818618834c9c99de70284d4bfb0cdfc926b03c88c732ba92fd9ba9e5ac900f.png" sizes="60x60" />
+<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="https://cdn2.hexlet.io/assets/icons/default/apple-touch-icon-120x120-3da36d0e1da4c8d1a6df85aec54c2b84946e96865005ffb4a10e99223bba2d61.png" sizes="120x120" />
+<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="https://cdn2.hexlet.io/assets/icons/default/apple-touch-icon-76x76-6a66b2c592947eb379280523cb009884f61f620be8375ebdee3ed7d23743314a.png" sizes="76x76" />
+<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="https://cdn2.hexlet.io/assets/icons/default/apple-touch-icon-152x152-93cc5e1542f2ca0d20c1f7fca7b5ac37be57f70e42d23877668d616383497540.png" sizes="152x152" />
+<meta content=' ' name='application-name'>
+<meta content='#FFFFFF' name='msapplication-TileColor'>
+<meta content='https://cdn2.hexlet.io/assets/icons/default/mstile-144x144-1f4fb8973826b06c9595101aac7f78fdb9bf26c3b769b759882ad319d58b17fd.png' name='msapplication-TileImage'>
+<meta content='https://cdn2.hexlet.io/assets/icons/default/mstile-70x70-a9446dd4e081479874e0c59b63960612d181b05b10b2fbd544a7da7c5f6ead2a.png' name='msapplication-square70x70logo'>
+<meta content='https://cdn2.hexlet.io/assets/icons/default/mstile-150x150-58610d84ec0afe2803c6e07649701c712e3257ab5fc06c6cd338557201b2571a.png' name='msapplication-square150x150logo'>
+<meta content='https://cdn2.hexlet.io/assets/icons/default/mstile-310x150-74279c38ca713e2d5526d2fc170c0c7951b85b83852fc22a59b216c73843a5ce.png' name='msapplication-wide310x150logo'>
+<meta content='https://cdn2.hexlet.io/assets/icons/default/mstile-310x310-dfe850e714b2b802fb7455a582bf8d34dcbd73c6e8d100a54d4c36007079f4e2.png' name='msapplication-square310x310logo'>
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="856BrsiBZarfzPx+p7N/NbrELlHF7Eukmuot2RxtCzOkx+bnTYkw8EwVTYAu+Xs2lmvlcVRo2Bkc5ecyQdGAPA==" />
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<script>
+//<![CDATA[
+window.gon={};gon.current_user={"id":null,"guest":true,"admin":false};gon.token="ktSFthJ/TrUOpJdcFuKSMoWo0TjtItEtcylPdJIFk9HFjeL/l3cb7519JqKfqJYxqQcaGHymQpD1JoWfz7kY3g==";gon.locale="ru";gon.rails_env="production";gon.analytics_events={"SIGNED_UP":"Signed up","SUBSCRIBED_TO_PLAN":"Subscribed to plan","STARTED_COURSE":"Started course","FINISHED_LESSON":"Finished lesson","FINISHED_COURSE":"Finished course","FINISHED_STACK":"Finished stack","RECURRING_CHARGE":"Recurring charge","CHARGE_PAYMENT":"Charge payment","STARTED_BATTLE":"Started battle","COMPLETED_WIZARD":"Completed wizard"};gon.subdomains=["en.hexlet.io","ru.hexlet.io"];gon.images={"secure_payment":"//cdn2.hexlet.io/assets/secure_payment-65c69d1a5efbb8fb7adf6f59697003b0996920cd54bdee7d7a558cb7d961c7ad.png"};
+//]]>
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (gon.current_user.guest) {
+    ga('create', 'UA-1360700-51', 'auto');
+  } else {
+    ga('create', 'UA-1360700-51', 'auto',  { 'userId': gon.current_user.id });
+  }
+  ga('send', 'pageview');
+</script>
+
+
+<meta content='website' property='og:type'>
+<meta content='Курсы - Hexlet.io' property='og:title'>
+<meta content='https://ru.hexlet.io/courses' property='og:url'>
+<meta content='Практические курсы по программированию и разработке, видео-лекции, тесты и упражнения' name='description'>
+<meta content='Практические курсы по программированию и разработке, видео-лекции, тесты и упражнения' property='og:description'>
+
+</head>
+<body>
+<nav class='navbar navbar-light hexlet-navbar'>
+<button aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation' class='navbar-toggler hidden-lg-up' data-target='#navbarResponsive' data-toggle='collapse' type='button'></button>
+<div class='collapse navbar-toggleable-md' id='navbarResponsive'>
+<a aria-hidden='true' class='navbar-brand mr-2' href='/'>
+Hexlet
+</a>
+<ul class='nav navbar-nav'>
+<li class="nav-item"><a class="nav-link  active" href="/courses"><span class='fa fa-university hexlet-header-icon'></span>
+Курсы
+</a></li><li class='nav-item'>
+<a class="nav-link" href="/pricing"><span class='fa fa-dollar hexlet-header-icon'></span>
+Цены
+</a></li>
+<li class='nav-item'>
+<a class="nav-link" href="/mentors"><span class='fa fa-users hexlet-header-icon'></span>
+Менторы
+</a></li>
+<li class='nav-item'>
+<a class="nav-link" href="https://en.hexlet.io/"><span class='fa fa-globe hexlet-header-icon'></span>
+Курсы на англ.
+</a></li>
+</ul>
+<ul class='nav navbar-nav float-lg-right'>
+<li class='nav-item'><a class="nav-link" href="https://hexlet.io/session/new?from=https%3A%2F%2Fru.hexlet.io%2Fcourses">Вход</a></li>
+<li class='nav-item'><form class="button_to" method="get" action="/u/new?from=https%3A%2F%2Fru.hexlet.io%2Fcourses"><input class="btn btn-success navbar-btn" type="submit" value="Регистрация" /></form></li>
+</ul>
+</div>
+</nav>
+<div class='text-xs-center'>
+<div class='display-4 text-warning'>Основные возможности платформы Hexlet не доступны в вашем браузере. Пожалуйста, обновитесь.</div>
+</div>
+
+<div class='container py-2'>
+
+<div class='container'>
+<div class='row m-0'>
+<div class='col-xs-12 mt-2 pr-0'>
+<ul class='nav nav-tabs'>
+<li class='nav-item'>
+<a class='nav-link active' href='/courses'>
+Все курсы
+</a>
+</li>
+<li class='nav-item'>
+<a class='nav-link' href='/courses/free'>
+Бесплатные
+</a>
+</li>
+<li class='nav-item'>
+<a class='nav-link' href='/professions'>
+Профессии
+</a>
+</li>
+</ul>
+</div>
+</div>
+<div class='row flex-items-xs-right'>
+<div class='col-xs-12 col-md-7 col-lg-4 mt-2'>
+<form class="simple_form " novalidate="novalidate" id="new_q" action="/courses/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" /><div class="form-group string optional q_name_or_description_cont"><input class="form-control string optional" placeholder="Найти курсы" type="text" name="q[name_or_description_cont]" id="q_name_or_description_cont" /></div>
+</form>
+
+</div>
+</div>
+<div class='row m-0'>
+<div class='col-xs-12'>
+<div class='tab-content'>
+<div class='tab-pane fade in active' id='courses'>
+<div class='row'>
+<div class='col-xs-12'>
+<h2 class='mb-2 hexlet-light-title'>Языки программирования</h2>
+</div>
+</div>
+<div class='row mb-3'>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/java_generics"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Java Generics" src="https://cdn2.hexlet.io/attachments/59dbc5e7f79d14601d0bb2f0f13d6c22f8be4c23/store/03657a48b7d43899b1ec98a1d47ee315ed44bb2ac2a3417e3b0b8055784b/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/java_generics">Java Generics</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/ruby"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Введение в Ruby" src="https://cdn2.hexlet.io/attachments/67ea28a8442cde06ca708dbf37d1c646b7712bb4/store/13aa01e2c919362c1add8a658a0bd440c9b2b98a6af036ae5512d9363487/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/ruby">Введение в Ruby</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/php-basics"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Основы PHP" src="https://cdn2.hexlet.io/attachments/3b4a0b6919c486dc841fb13856fb5c4dc41fea46/store/b12869df63f04bf4a8aebecb70868442cff84a39f454f7c95ca503189ac2/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/php-basics">Основы PHP</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<div class='hexlet-ribbon-wrapper-green'>
+<div class='hexlet-ribbon-green'>FREE</div>
+</div>
+<a href="/courses/php-beginning"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="PHP: Начало работы" src="https://cdn2.hexlet.io/attachments/1e897b375675ee856793a2e2e3e6a74190651a4e/store/16e505716885afe2a16ab30547d4d7474d944879040860bf4736e1628113/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/php-beginning">PHP: Начало работы</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/regexp"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Регулярные выражения" src="https://cdn2.hexlet.io/attachments/b11957c73efb9dd96d01ed29e6da636be6d3ce85/store/dbf935e36b10e6740c9e6861e3797a150b0922b913b3198f52087241ac76/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/regexp">Регулярные выражения</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/php-io"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="PHP: Ввод и вывод" src="https://cdn2.hexlet.io/attachments/2302f71b928f133f5bae6dc5b929a828ea522445/store/81399421019345a9d71bfc94ae615903c871ed0426fc90c61688cdab4b7f/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/php-io">PHP: Ввод и вывод</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/php-oop"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="PHP: ООП" src="https://cdn2.hexlet.io/attachments/eeb5e785052ca5956dece9f401cfada6733aa0e5/store/4e21f74d28a5edab55112878fb7085ba107a64b1a313e878dd01490e7841/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/php-oop">PHP: ООП</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/php-pdo"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="PHP PDO: Работа с базой данных" src="https://cdn2.hexlet.io/attachments/f413c970accf31425c41709f6d8eb13362882894/store/62e4813a1bc5c28073acaa4d4bcecae83658e4f4665aa9d8fd4f7e595a2f/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/php-pdo">PHP PDO: Работа с базой данных</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/php-algorithms"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="PHP: Алгоритмы" src="https://cdn2.hexlet.io/attachments/ea820db4f202ba28af9992764d4cec3b7e93ed41/store/ba43bf404d32c76218032d803e04bbc17937a886119a11214f0e902d55d4/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/php-algorithms">PHP: Алгоритмы</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<div class='hexlet-ribbon-wrapper-green'>
+<div class='hexlet-ribbon-green'>FREE</div>
+</div>
+<a href="/courses/introduction_to_c"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Введение в Си" src="https://cdn2.hexlet.io/attachments/011982def2a25433496dc0ad67ccd7b73bf9afcb/store/8a6ac435c514eaeb77315a7eab89f8f7498e58a59bfdf1473ddca8bde026/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/introduction_to_c">Введение в Си</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<div class='hexlet-ribbon-wrapper-green'>
+<div class='hexlet-ribbon-green'>FREE</div>
+</div>
+<a href="/courses/javascript_setup"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: подготовка к работе" src="https://cdn2.hexlet.io/attachments/cf0487ed95191f14bc873d54f647b10377980dfa/store/fcaa2cd7f4014bb873cafff278a58a719b3e12077168ed2cd8dda39ad773/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/javascript_setup">JS: подготовка к работе</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/php-sicp"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="PHP: Построение абстракций" src="https://cdn2.hexlet.io/attachments/b95852053364dbf996ba4772bc5e6feb8a45ddda/store/e6e4413d01578e5a4a2c82b0a2a093e96fffc84d67a9a2c26eec9121e684/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/php-sicp">PHP: Построение абстракций</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/collections"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Java: Структуры данных" src="https://cdn2.hexlet.io/attachments/94af3240db1a329e559949a8942234322b2a5298/store/1058b88824894b6c667fb962040b00f90414671ce5d1f9fab7d214177bff/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/collections">Java: Структуры данных</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/java_101"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Введение в Java" src="https://cdn2.hexlet.io/attachments/10e725244bb8e0e50c111e72071991f506ca1d0f/store/34ef95b18771f62c05bab09ba3bad91b980554c28daad7c3f34096289ac2/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/java_101">Введение в Java</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/bytecode"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Байт-код Java" src="https://cdn2.hexlet.io/attachments/f4c746fb57e073e324141e40eead82b9ebd01e83/store/36abeef706894a86e5ec144ee17568ab2c086ad7271837ebd5a7ec24b010/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/bytecode">Байт-код Java</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/php-web"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="PHP: Веб-разработка" src="https://cdn2.hexlet.io/attachments/2f0909fa2404c29654974f6e5a0daccb9f7be0f3/store/59831bb2f8d19ed2da809e7714b6b01b55e770941f63ed920b76aaae1547/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/php-web">PHP: Веб-разработка</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/php-functional"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="PHP: Функциональное программирование" src="https://cdn2.hexlet.io/attachments/20eafd2f479855386839ed0722e0668cc10967d6/store/9049e8038e03ba4d089b6189b6d6123d4ca7c1ecc60ba666cb93541cd093/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/php-functional">PHP: Функциональное программирование</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/php-testing"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="PHP: Автоматическое тестирование" src="https://cdn2.hexlet.io/attachments/d8875649edcde532289c742665daa7b1cfe60792/store/3e4b892edaba4e788028c5405c9c63ca53834bf46b2f3d42fbc2db6df282/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/php-testing">PHP: Автоматическое тестирование</a></h2>
+</div>
+</div>
+
+</div>
+</div>
+<div class='row'>
+<div class='col-xs-12'>
+<h2 class='mb-2 hexlet-light-title'>Веб-разработка</h2>
+</div>
+</div>
+<div class='row mb-3'>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/js-express"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Express" src="https://cdn2.hexlet.io/attachments/f3c56bba943c470683ca07500ec8ca3525e6cef4/store/89ae1fd8ffc0fbd3a3b565d063baa374f35a722cb617a47ff22f4610130b/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/js-express">JS: Express</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/js-sync"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Синхронная асинхронность" src="https://cdn2.hexlet.io/attachments/dc3da6833b8cab0a1b4a70a41a15c28f93a21d50/store/646576df0bd751b18b7673f2b2bdf6809849f03657ec0335ae1456a13a24/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/js-sync">JS: Синхронная асинхронность</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/reactjs"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Reactjs: Начало" src="https://cdn2.hexlet.io/attachments/aab372d131632dc789f34cd638548af942a18c15/store/3c0e9acb21af61b1087ebfc95c18f49ceed934ecdddc7be73e3c58f2b922/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/reactjs">Reactjs: Начало</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/http_protocol"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Протокол HTTP" src="https://cdn2.hexlet.io/attachments/0fc10151e19e8b892115fc6f2aaa191c2c148055/store/28f037796f8ed2418a3f75f4ecc4299a05189a896ad8dfd42731ffa9d0fb/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/http_protocol">Протокол HTTP</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/js-http-server"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: HTTP Server" src="https://cdn2.hexlet.io/attachments/981b597152f0c579eb2334373b8608044a24498b/store/e5c08e33abed4c9346e38131c00c28d39323f1d404c7d7758a1a9d18b72f/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/js-http-server">JS: HTTP Server</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/java-webservices"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Java для веб-сервисов" src="https://cdn2.hexlet.io/attachments/d20db807b86ae4cf656f5cd0a594dd06ee98a7a0/store/265544ea4269deef1746f4031e8db9225aa8f632c019dfd1223542bdbd06/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/java-webservices">Java для веб-сервисов</a></h2>
+</div>
+</div>
+
+</div>
+</div>
+<div class='row'>
+<div class='col-xs-12'>
+<h2 class='mb-2 hexlet-light-title'>Базы данных</h2>
+</div>
+</div>
+<div class='row mb-3'>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/sql-dql"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Базы данных: SQL (DQL)" src="https://cdn2.hexlet.io/attachments/3f1589a03b26aa3a6b8b41d0f8831d54fdc07d1e/store/ef7c8b41444709ceac67f1c9e6664d8e3a848127d4554d81bb239c59bf4a/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/sql-dql">Базы данных: SQL (DQL)</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/postgresql-ddl"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Базы данных: SQL (DDL/DML)" src="https://cdn2.hexlet.io/attachments/391675a75de83c56b813429ebec3fc95078bc966/store/24967d5e7d067668b3f36820454af0c98bc99179845194b8f9a6e9177da6/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/postgresql-ddl">Базы данных: SQL (DDL/DML)</a></h2>
+</div>
+</div>
+
+</div>
+</div>
+<div class='row'>
+<div class='col-xs-12'>
+<h2 class='mb-2 hexlet-light-title'>Фундаментальное</h2>
+</div>
+</div>
+<div class='row mb-3'>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/js_errors"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Обработка ошибок" src="https://cdn2.hexlet.io/attachments/705509ce9c196d0eb9aec25d4a1c01ce344ae182/store/0bb79b91d198e028986f1124c66b97ad722b0c9dc928026aa6f61ca6a0e1/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/js_errors">JS: Обработка ошибок</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/js-algorithms"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Алгоритмы" src="https://cdn2.hexlet.io/attachments/642f9c61c52daaefda176f2f8494efbd9bab3fc1/store/8412c1c5a21bdf1fbe5767b2194b2c7e5204a324c1a7509e51b33f2d4a77/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/js-algorithms">JS: Алгоритмы</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/js_async"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Асинхронное программирование" src="https://cdn2.hexlet.io/attachments/013d1c016aa4144be6a55cd43324cc8c5d7fe22d/store/3b6184b0036f08c72ed8967d243fb5460b0d9aad08565243540824bb1fea/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/js_async">JS: Асинхронное программирование</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/sequences"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Последовательности" src="https://cdn2.hexlet.io/attachments/f60ac21d3bc3cc261cf9b44faaabebb8a172613a/store/fc84c55d6f71fcc9987147facbe6be29bf79bf18623df666579d3f428322/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/sequences">JS: Последовательности</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/introduction_to_algorithms"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Введение в алгоритмы" src="https://cdn2.hexlet.io/attachments/0f67701434ca4e18df45c2c0a96103d8fe377aca/store/d424a44a01c3a86e7d3e671ebd2f06a9c04af38795d947e6a346ab4b88da/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/introduction_to_algorithms">Введение в алгоритмы</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<div class='hexlet-ribbon-wrapper-green'>
+<div class='hexlet-ribbon-green'>FREE</div>
+</div>
+<a href="/courses/logic"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Логика" src="https://cdn2.hexlet.io/attachments/634975a634ff01636247389140a62e60dd70082f/store/649703ff6ecdbbac711775dfad2254eb2e1b9d84667d675d2eddb0a5b791/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/logic">Логика</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/js-ddd"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Предметно-ориентированное проектирование" src="https://cdn2.hexlet.io/attachments/f0e456f985d9809a6df2895411713a894d9016b9/store/eb26497aa3b73856f13436566f9c20433324f907c6fa399879fccb60516e/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/js-ddd">JS: Предметно-ориентированное проектирование</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/concurrency"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Java: Многопоточность" src="https://cdn2.hexlet.io/attachments/d936ae9a387919e26b3e261eeb78d0b6bbf33ffe/store/d01e267f985dc085366f8932f061bd71105fd4e65f633eefe30f144865c1/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/concurrency">Java: Многопоточность</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/sicp"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Структура и интерпретация компьютерных программ" src="https://cdn2.hexlet.io/attachments/db37013bde3f3a7f9a98f2b2c454e759153f412f/store/ba086f1940c3ca7e227a38f1d7f2d93d945102036b9692c15a9cf9c222fd/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/sicp">Структура и интерпретация компьютерных программ</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/js-abp"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Автоматное программирование" src="https://cdn2.hexlet.io/attachments/c2c2d64b1b206171dbfa7ede13c33f93f4dfcfc3/store/c20a95a7619692f9138e34556eb265d263bd465c7c7b909294381aacb349/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/js-abp">JS: Автоматное программирование</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<div class='hexlet-ribbon-wrapper-green'>
+<div class='hexlet-ribbon-green'>FREE</div>
+</div>
+<a href="/courses/programming-basics"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Основы программирования" src="https://cdn2.hexlet.io/attachments/2ef165dd57e2e118cd1e42df265de23e2df4f48e/store/ce1197adeb76c921c9d3d1f0c44f78e6469238f62cc73cd909387a7c413a/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/programming-basics">Основы программирования</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/compound_data"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Составные данные" src="https://cdn2.hexlet.io/attachments/0f15d77d2d9f9a8895b4a49f510ffee28f98a940/store/31b51be62abd59e84e8c139dcccb8e7ebdff0f0f61385073974497338ea7/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/compound_data">JS: Составные данные</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/js_collections"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Коллекции" src="https://cdn2.hexlet.io/attachments/7e659184cc7b89a27637d45beb57a1af3aa1c7d0/store/3cd6ed6196f8d380b4a262c4aa029497d94b3c0a30aecc4725b0e716ac3e/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/js_collections">JS: Коллекции</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/js_prototypes"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Прототипы" src="https://cdn2.hexlet.io/attachments/346fadf4289fdee5112b27c0c7c2a25b309aea77/store/518b850e8bacdecd1edf77c390aea69bf0f8c1cba0b958b8bd36c07b8dfd/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/js_prototypes">JS: Прототипы</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/ddp"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="JS: Программирование, управляемое данными" src="https://cdn2.hexlet.io/attachments/70fbfc2487ad3b0fb8752aae0df2830c3d345e5f/store/06cb90c303e7aa7dada3b9adc53df8ae830973ede50c42abc7809b29021e/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/ddp">JS: Программирование, управляемое данными</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<div class='hexlet-ribbon-wrapper-green'>
+<div class='hexlet-ribbon-green'>FREE</div>
+</div>
+<a href="/courses/prog-life"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Жизнь программиста" src="https://cdn2.hexlet.io/attachments/f32bf14883d0525366a7d7ea8ce70c25478cca01/store/292147d66876afc790de680bd342bb504c5ed175cd2c7ffe829b127dd29d/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/prog-life">Жизнь программиста</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<div class='hexlet-ribbon-wrapper-green'>
+<div class='hexlet-ribbon-green'>FREE</div>
+</div>
+<a href="/courses/operating_systems"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Операционные системы" src="https://cdn2.hexlet.io/attachments/2b6c566e1b828e78b3847672e7b9ddb806e29ac3/store/138a9ff00e8546eb10f8dd705f51eddf35e130ffd9a6fbecc5ee31f35034/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/operating_systems">Операционные системы</a></h2>
+</div>
+</div>
+
+</div>
+</div>
+<div class='row'>
+<div class='col-xs-12'>
+<h2 class='mb-2 hexlet-light-title'>Администрирование</h2>
+</div>
+</div>
+<div class='row mb-3'>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/linux-users"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Linux: Пользователи" src="https://cdn2.hexlet.io/attachments/cbb243536e4fa88b6362c6e060fe2d0ef710a8c8/store/ce614a564b28845dface480a3a84f4a49f2392a974a5adfcc3d011389e10/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/linux-users">Linux: Пользователи</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<div class='hexlet-ribbon-wrapper-green'>
+<div class='hexlet-ribbon-green'>FREE</div>
+</div>
+<a href="/courses/bash"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Bash: Основы командной строки" src="https://cdn2.hexlet.io/attachments/4d10c964ed6516643bfb2b1e613d0715f83c6e5a/store/0c5e78c284ce974102b233dc51b3a45983465dcedbd4809834259cccdaa2/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/bash">Bash: Основы командной строки</a></h2>
+</div>
+</div>
+
+</div>
+<div class='col-lg-4 col-sm-6 col-xs-12 mb-2'>
+<div class='card'>
+<a href="/courses/ansible"><img class="attachment course image card-img-top img-fluid hexlet-course-image" alt="Основы Ansible" src="https://cdn2.hexlet.io/attachments/b614c5834a4d5a5f85b891da33c5a9ef0e0c84c8/store/fa6a82df433912e8af0945b91fca0c1551d62e1d9e3ace3111761325555f/image.png" />
+</a><div class='card-block text-xs-center'>
+<h2 class='lead mb-0'><a class="hexlet-link-light" href="/courses/ansible">Основы Ansible</a></h2>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<footer class='py-2 mt-3 text-muted'>
+<div class='container'>
+<div class='row'>
+<div class='col-lg-4 col-sm-12 col-xs-12 mt-1'>
+<div class='h4 hexlet-light-title'>
+Hexlet
+<i>βeta,</i>
+2017
+</div>
+<a href="mailto:support@hexlet.io">support@hexlet.io</a>
+/
+<a class="nav-link" href="http://help.hexlet.io">Помощь</a>
+<div class='pr-2'>
+<hr>
+</div>
+<p>
+<ul class='nav'>
+<li class='nav-item'><a class="nav-link" href="/pages/about">О проекте</a></li>
+<li class='nav-item'><a class="nav-link" href="/pages/testimonials">Отзывы пользователей</a></li>
+<li class='nav-item'><a class="nav-link" href="https://ru.hexlet.io/feedback">Идеи и предложения</a></li>
+<li class='nav-item'><a class="nav-link" href="/pages/tos">Условия использования</a></li>
+</ul>
+</p>
+</div>
+<div class='col-lg-3 col-sm-6 col-xs-12 mt-1'>
+<div class='h6'>На связи</div>
+<ul class='nav'>
+<li class='nav-item'>
+<span class='fa fa-newspaper-o'></span>
+&nbsp;
+<a class="nav-link" href="/blog">Блог</a>
+</li>
+<li class='nav-item mb-1'>
+<span class='fa fa-header'></span>
+&nbsp;
+<a class="nav-link" href="http://habrahabr.ru/company/hexlet/">Блог на Хабре</a>
+</li>
+<li class='nav-item'>
+<span class='fa fa-video-camera'></span>
+&nbsp;
+<a class="nav-link" href="https://www.youtube.com/user/HexletUniversity"> youtube</a>
+</li>
+<li class='nav-item'>
+<span class='fa fa-twitter'></span>
+&nbsp;
+<a class="nav-link" href="http://twitter.com/HexletHQ"> twitter</a>
+</li>
+<li class='nav-item'>
+<span class='fa fa-facebook'></span>
+&nbsp;
+<a class="nav-link" href="https://www.facebook.com/Hexlet"> facebook</a>
+</li>
+<li class='nav-item'>
+<span class='fa fa-vk'></span>
+&nbsp;
+<a class="nav-link" id="VK95731912" href="https://vk.com/hexlet"> vkontakte</a>
+</li>
+<li class='nav-item'>
+<span class='fa fa-google-plus'></span>
+&nbsp;
+<a class="nav-link" href="https://plus.google.com/b/108226937214888198279/+HexletOrg/posts"> google+</a>
+</li>
+<li class='nav-item'>
+<span class='fa fa-link'></span>
+&nbsp;
+<a class="nav-link" href="/news">Hexlet News</a>
+</li>
+</ul>
+</div>
+<div class='col-lg-3 col-sm-6 col-xs-12 mt-1'>
+<div class='h6'>Подробности</div>
+<ul class='nav'>
+<li class='nav-item'><a class="nav-link" href="http://slack-ru.hexlet.io/">Чат</a></li>
+<li class='nav-item'><a class="nav-link" href="/community">Сообщество</a></li>
+<li class='nav-item'><a class="nav-link" href="/code_reviews_comments">Комментарии в код ревью</a></li>
+<li class='mt-1 nav-item'><a class="nav-link" href="/pages/principles">Принципы программирования</a></li>
+<li class='nav-item'><a class="nav-link" href="https://map.hexlet.io">Путь программиста</a></li>
+<li class='nav-item'><a class="nav-link" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSr58Xg4DVX2WdmAkv3hE2ITJ3fPeNUmRFe0Ekro53U-ACFrhcUkV8PlUm4ddcn53Uh-5UIezZtZZgc/pubhtml">Матрица</a></li>
+<li class='nav-item'><a class="nav-link" href="http://shop.hexlet.io/">Магазин атрибутики</a></li>
+</ul>
+</div>
+<div class='col-lg-2 col-sm-6 col-xs-12 mt-1'>
+<ul class='nav mt-2'>
+<li class='mb-1 nav-item'>
+<a class="nav-link font-weight-bold" href="https://ru.hexlet.io/gift">Подарок другу</a>
+<span class='fa fa-gift'></span>
+</li>
+<li class='nav-item'><a class="nav-link" href="/jobs">Вакансии</a></li>
+<li class='nav-item'><a class="nav-link" href="/teams">Для компаний</a></li>
+<li class='nav-item'><a class="nav-link" href="/business">Моя команда</a></li>
+<li class='nav-item'><a class="nav-link" href="/teacher/courses">Учительская</a></li>
+<li class='nav-item'><a class="nav-link" href="/my/blog_posts">Мои посты в блог</a></li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+
+</body>
+</html>
