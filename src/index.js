@@ -8,6 +8,6 @@ export default (address, outputDir) => {
   const newFileName = `${parsedURL.hostname.replace(/[^0-9a-z]/gi, '-')}${parsedURL.pathname.replace(/\//g, '-')}.html`;
   axios.get(address).then((response) => {
     fs.openSync(`${outputDir}/${newFileName}`, 'w');
-    fs.writeFileSync(`${outputDir}/${newFileName}`, response.data);
+    fs.writeFileSync(`${outputDir}/${newFileName}`, response.data, callback);
   });
 };
