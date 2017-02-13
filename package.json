@@ -1,6 +1,6 @@
 {
   "name": "page-downloader",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Download a page from www and use it Local",
   "main": "dist/index.js",
   "bin": {
