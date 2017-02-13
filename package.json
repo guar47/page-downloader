@@ -4,7 +4,7 @@
   "description": "Download a page from www and use it Local",
   "main": "dist/index.js",
   "bin": {
-    "pageDownload": "dist/bin/downloader-bin.js"
+    "page-loader": "dist/bin/downloader-bin.js"
   },
   "scripts": {
     "babel-node": "babel-node",
