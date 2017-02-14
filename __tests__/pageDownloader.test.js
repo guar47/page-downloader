@@ -1,4 +1,5 @@
 /* eslint-env node, jest */
+/* eslint-disable no-console */
 
 import fs from 'fs';
 import nock from 'nock';

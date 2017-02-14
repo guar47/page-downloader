@@ -2,7 +2,7 @@
 import url from 'url';
 import fs from 'fs';
 import axios from 'axios';
-import cheerio from 'cheerio';
+// import cheerio from 'cheerio';
 
 export default (address, outputDir = '.') => {
   const parsedURL = url.parse(address);
