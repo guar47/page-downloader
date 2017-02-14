@@ -2,7 +2,7 @@ install:
 	npm install
 
 run:
-	npm run babel-node -- ./src/bin/package-bin.js
+	npm run babel-node -- ./src/bin/downloader-bin.js $(1)
 
 build:
 	rm -rf dist

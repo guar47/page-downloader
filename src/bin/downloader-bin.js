@@ -4,7 +4,7 @@ import commander from 'commander';
 import pageLoader from '../';
 
 commander
-  .version('0.0.2')
+  .version('0.0.7')
   .description('Download a page from www')
   .arguments('<address>')
   .option('-o, --output [dir]', 'Directory for download')
