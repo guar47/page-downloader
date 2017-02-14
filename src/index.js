@@ -4,10 +4,25 @@ import fs from 'fs';
 import axios from 'axios';
 // import cheerio from 'cheerio';
 
-export default (address, outputDir = '.') => {
+const nameGenerator = (address, type) => {
   const parsedURL = url.parse(address);
-  const newFileName = `${parsedURL.hostname.replace(/[^0-9a-z]/gi, '-')}${parsedURL.pathname.replace(/\//g, '-')}.html`;
-  const newFolderName = `${parsedURL.hostname.replace(/[^0-9a-z]/gi, '-')}${parsedURL.pathname.replace(/\//g, '-')}_files`;
+  let newName = '';
+  switch (type) {
+    case 'html':
+      newName = `${parsedURL.hostname.replace(/[^0-9a-z]/gi, '-')}${parsedURL.pathname.replace(/\//g, '-')}.html`;
+      break;
+    case 'folder':
+      newName = `${parsedURL.hostname.replace(/[^0-9a-z]/gi, '-')}${parsedURL.pathname.replace(/\//g, '-')}_files`;
+      break;
+    default:
+      return newName;
+  }
+  return newName;
+};
+
+export default (address, outputDir = '.') => {
+  const newFileName = nameGenerator(address, 'html');
+  const newFolderName = nameGenerator(address, 'folder');
   return axios.get(address).then((response) => {
     fs.writeFileSync(`${outputDir}/${newFileName}`, response.data);
   }).then(() => {
