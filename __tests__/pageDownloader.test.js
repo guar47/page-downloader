@@ -14,7 +14,8 @@ test('check dowloaded file', () => {
     .reply(200, 'test content http body');
   const address = 'http://localhost/testpath';
   const tmpDir = fs.mkdtempSync('__tests__/__fixtures__/tmp-');
-  pageLoader(address, tmpDir);
-  const file = fs.readFile(`${tmpDir}/test-com-testpath.html`, 'utf8');
-  expect(file).toBe('test content http body');
+  pageLoader(address, tmpDir).then(() => {
+    const file = fs.readFileSync(`${tmpDir}/localhost-testpath.html`, 'utf8');
+    expect(file).toBe('test content http body');
+  });
 });
