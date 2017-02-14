@@ -29,7 +29,7 @@
   "dependencies": {
     "commander": "*",
     "axios": "*",
-    "nock": "*"
+    "cheerio": "*"
   },
   "devDependencies": {
     "babel-cli": "*",
@@ -47,6 +47,7 @@
     "eslint-plugin-react": "*",
     "flow-bin": "*",
     "flow-typed": "*",
+    "nock": "*",
     "jest": "*"
   },
   "jest": {
