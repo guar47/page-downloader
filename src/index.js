@@ -6,9 +6,11 @@ import cheerio from 'cheerio';
 
 export default (address, outputDir = '.') => {
   const parsedURL = url.parse(address);
-  const newFileName = `${parsedURL.hostname.replace(/[^0-9a-z]/gi, '-')}${parsedURL.pathname.replace(/[^0-9a-z]/gi, '-')}.html`;
+  const newFileName = `${parsedURL.hostname.replace(/[^0-9a-z]/gi, '-')}${parsedURL.pathname.replace(/\//g, '-')}.html`;
+  const newFolderName = `${parsedURL.hostname.replace(/[^0-9a-z]/gi, '-')}${parsedURL.pathname.replace(/\//g, '-')}_files`;
   return axios.get(address).then((response) => {
-    fs.openSync(`${outputDir}/${newFileName}`, 'w');
     fs.writeFileSync(`${outputDir}/${newFileName}`, response.data);
+  }).then(() => {
+    fs.mkdirSync(`${outputDir}/${newFolderName}`);
   });
 };
