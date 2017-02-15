@@ -10,7 +10,21 @@
 <link rel="shortcut icon" type="image/png" href="https://cdn2.hexlet.io/assets/icons/default/favicon-16x16-cc9a0ab442a9dcba7e70fb733f58691955a2d1608fe439a5eed2afab400eb719.png" sizes="16x16" />
 <link rel="shortcut icon" type="image/png" href="https://cdn2.hexlet.io/assets/icons/default/favicon-128-a9446dd4e081479874e0c59b63960612d181b05b10b2fbd544a7da7c5f6ead2a.png" sizes="128x128" />
 <link rel="shortcut icon" type="image/png" href="https://cdn2.hexlet.io/assets/icons/default/android-icon-192x192-d4b29b393f0ec444bed29668e9b4b16aeb0a9c5312700e4f0819a96f72286cfc.png" sizes="192x192" />
-
+<script>
+  if (!window.Rollbar) {
+    Rollbar = {
+      error: function() {
+      },
+      configure: function() {
+      }
+    }
+  }
+  Rollbar.configure({
+    payload: {
+      person: gon.current_user
+    }
+  });
+</script>
 </head>
 <body>
 <div class='col-lg-3 col-sm-6 col-xs-12 mt-1'>
@@ -29,6 +43,8 @@
 </div>
 </div>
 </div>
+<footer>
+  <script src="https://cdn2.hexlet.io/assets/application-4a22ec64913e57f9d297149cd20cb001db20febca800210f48729059b5103819.js" async="async" crossorigin="anonymous" onload="onApplicationJsLoaded(this)" onerror="onScriptLoadError(this)"></script>
 </footer>
 
 </body>
