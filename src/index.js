@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import url from 'url';
 import fs from 'fs';
 import axios from 'axios';
@@ -24,34 +23,45 @@ const nameGenerator = (address, type) => {
   return newName;
 };
 
-const linksLoader = (html, newFolderPath) => {
-  const $ = cheerio.load(html);
+const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlResponse) => {
+  const domain = `${url.parse(address).protocol}//${url.parse(address).host}`;
+  const responseData = htmlResponse.data;
+  const $ = cheerio.load(responseData);
   const links = [];
   $('link').each((i, elem) => {
-    links[i] = $(elem).attr('href');
+    links.push($(elem).attr('href'));
   });
   $('script[src]').each((i, elem) => {
-    links[i] = $(elem).attr('src');
+    links.push($(elem).attr('src'));
   });
-  links.join(', ');
   if (links.length > 0) {
+    const newFolderName = nameGenerator(address, 'folder');
+    const newFolderPath = path.join(outputDir, newFolderName);
     fs.mkdirSync(newFolderPath);
     links.forEach((link) => {
-      const newFileName = nameGenerator(link, 'other');
-      return axios.get(link).then((response) => {
-        fs.writeFileSync(path.join(newFolderPath, newFileName), response.data, 'binary');
+      let linkEdit = '';
+      if (link[0] === '/' && link[1] === '/') {
+        linkEdit = `http:${link}`;
+      } else if (link[0] === '/') {
+        linkEdit = `${domain}${link}`;
+      } else {
+        linkEdit = link;
+      }
+      const newFileName = nameGenerator(linkEdit, 'other');
+      const newFilePath = path.join(newFolderPath, newFileName);
+      const newFileRelPath = path.join(newFolderName, newFileName);
+      $(`link[href='${link}']`).attr('href', newFileRelPath);
+      $(`script[src='${link}']`).attr('src', newFileRelPath);
+      return axios.get(linkEdit, {
+        responseType: 'arraybuffer',
+      }).then((response) => {
+        fs.writeFileSync(newFilePath, response.data, 'binary');
       });
     });
   }
-};
-
-const pageLoader = (address, outputDir = '.') => {
+  const newDataOutput = $.html();
   const newFileName = nameGenerator(address, 'html');
-  const newFolderPath = path.join(outputDir, nameGenerator(address, 'folder'));
-  return axios.get(address).then((response) => {
-    fs.writeFileSync(path.join(outputDir, newFileName), response.data, 'binary');
-    linksLoader(response.data, newFolderPath);
-  });
-};
+  fs.writeFileSync(path.join(outputDir, newFileName), newDataOutput);
+});
 
 export default pageLoader;
