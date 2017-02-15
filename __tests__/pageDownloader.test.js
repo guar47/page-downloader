@@ -8,10 +8,10 @@ import pageLoader from '../src/';
 const htmlbody = fs.readFileSync('__tests__/__fixtures__/hexlet-io-courses.html', 'utf8');
 const htmlbodyAfterSubst = fs.readFileSync('__tests__/__fixtures__/hexlet-io-courses_subst.html', 'utf8');
 const address = 'http://localhost/testpath';
-const tmpDir = fs.mkdtempSync(os.tmpdir());
+const tmpDir = os.tmpdir();
 console.log(`Current tmp directory for tests - ${tmpDir}`);
 
-beforeAll(() => {
+beforeEach(() => {
   nock('http://localhost')
     .get('/testpath')
     .reply(200, htmlbody);
