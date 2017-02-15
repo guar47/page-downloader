@@ -2,6 +2,7 @@
 import url from 'url';
 import fs from 'fs';
 import axios from 'axios';
+import path from 'path';
 // import cheerio from 'cheerio';
 
 const nameGenerator = (address, type) => {
@@ -23,9 +24,11 @@ const nameGenerator = (address, type) => {
 export default (address, outputDir = '.') => {
   const newFileName = nameGenerator(address, 'html');
   const newFolderName = nameGenerator(address, 'folder');
-  return axios.get(address).then((response) => {
-    fs.writeFileSync(`${outputDir}/${newFileName}`, response.data);
+  return axios.get(address, {
+    responseType: 'arraybuffer',
+  }).then((response) => {
+    fs.writeFileSync(path.join(outputDir, newFileName), response.data, 'binary');
   }).then(() => {
-    fs.mkdirSync(`${outputDir}/${newFolderName}`);
+    fs.mkdirSync(path.join(outputDir, newFolderName));
   });
 };
