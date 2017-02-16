@@ -23,39 +23,39 @@ const generateName = (address, type) => {
 };
 
 const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlResponse) => {
-  const normalizeDomainName = `${url.parse(address).protocol}//${url.parse(address).host}`;
+  const domainName = `${url.parse(address).protocol}//${url.parse(address).host}`;
   const responseData = htmlResponse.data;
   const $ = cheerio.load(responseData);
-  const normalizeFileName = generateName(address, 'html');
+  const newFileName = generateName(address, 'html');
   const hrefs = $('link').map((i, elem) => $(elem).attr('href')).get();
   const scripts = $('script[src]').map((i, elem) => $(elem).attr('src')).get();
   const links = [...hrefs, ...scripts];
 
   if (links.length > 0) {
-    const normalizeFolderName = generateName(address, 'folder');
-    const normalizeFolderPath = path.join(outputDir, normalizeFolderName);
-    fs.mkdirSync(normalizeFolderPath);
+    const newFolderName = generateName(address, 'folder');
+    const newFolderPath = path.join(outputDir, newFolderName);
+    fs.mkdirSync(newFolderPath);
     return Promise.all(links.map((link) => {
       let linkEdit = '';
       if (link[0] === '/' && link[1] === '/') {
         linkEdit = `http:${link}`;
       } else if (link[0] === '/') {
-        linkEdit = `${normalizeDomainName}${link}`;
+        linkEdit = `${domainName}${link}`;
       } else {
         linkEdit = link;
       }
-      const normalizeSubFileName = generateName(linkEdit);
-      const normalizeFilePath = path.join(normalizeFolderPath, normalizeSubFileName);
-      const normalizeFileRelPath = path.join(normalizeFolderName, normalizeSubFileName);
-      $(`link[href='${link}']`).attr('href', normalizeFileRelPath);
-      $(`script[src='${link}']`).attr('src', normalizeFileRelPath);
+      const newSubFileName = generateName(linkEdit);
+      const newFilePath = path.join(newFolderPath, newSubFileName);
+      const newFileRelPath = path.join(newFolderName, newSubFileName);
+      $(`link[href='${link}']`).attr('href', newFileRelPath);
+      $(`script[src='${link}']`).attr('src', newFileRelPath);
       return axios.get(linkEdit, {
         responseType: 'arraybuffer',
       }).then((response) => {
-        fs.writeFileSync(normalizeFilePath, response.data, 'binary');
+        fs.writeFileSync(newFilePath, response.data, 'binary');
       });
     })).then(() => {
-      fs.writeFileSync(path.join(outputDir, normalizeFileName), $.html());
+      fs.writeFileSync(path.join(outputDir, newFileName), $.html());
     });
   }
 });
