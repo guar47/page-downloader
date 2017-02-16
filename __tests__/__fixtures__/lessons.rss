@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>New lessons from Hexlet</title>
+    <description>Practical programming lessons</description>
+    <link>https://en.hexlet.io/</link>
+    <webmaster>info@hexlet.io</webmaster>
+    <item>
+      <title>Typing: dynamic vs. static and weak vs strong / Intro to Programming</title>
+      <link>https://en.hexlet.io/courses/intro_to_programming/lessons/types/theory_unit</link>
+      <goal>Learn about types in JavaScript, and understand the difference between dynamic and static typing and weak and strong typing.</goal>
+      <author>Rakhim Davletkaliyev</author>
+      <pubDate>Mon, 13 Feb 2017 10:26:17 +0000</pubDate>
+    </item>
+    <item>
+      <title>Environment, scope and closures / Intro to Programming</title>
+      <link>https://en.hexlet.io/courses/intro_to_programming/lessons/env/theory_unit</link>
+      <goal>Understand how and why isolated environments are created in JS, what scoping is and how cool are closures.</goal>
+      <author>Rakhim Davletkaliyev</author>
+      <pubDate>Tue, 07 Feb 2017 10:48:09 +0000</pubDate>
+    </item>
+    <item>
+      <title>Expressions vs. Statements / Intro to Programming</title>
+      <link>https://en.hexlet.io/courses/intro_to_programming/lessons/expressions/theory_unit</link>
+      <goal>Understand the important distinction: expressions vs. statements in JavaScript. And learn how this knowledge will help you.</goal>
+      <author>Rakhim Davletkaliyev</author>
+      <pubDate>Wed, 01 Feb 2017 19:32:10 +0000</pubDate>
+    </item>
+    <item>
+      <title>Dividing code into modules / Intro to Programming</title>
+      <link>https://en.hexlet.io/courses/intro_to_programming/lessons/modules/theory_unit</link>
+      <goal>Learn about dividing code into meaningful and reusable modules.</goal>
+      <author>Rakhim Davletkaliyev</author>
+      <pubDate>Sat, 28 Jan 2017 13:16:27 +0000</pubDate>
+    </item>
+    <item>
+      <title>Testing code with other code / Intro to Programming</title>
+      <link>https://en.hexlet.io/courses/intro_to_programming/lessons/testing/theory_unit</link>
+      <goal>Understand the idea of testing code — writing code that checks the behavior of other code, look at some examples and write your own tests</goal>
+      <author>Rakhim Davletkaliyev</author>
+      <pubDate>Tue, 24 Jan 2017 20:18:42 +0000</pubDate>
+    </item>
+    <item>
+      <title>Mutators and for loop / Intro to Programming</title>
+      <link>https://en.hexlet.io/courses/intro_to_programming/lessons/mutators/theory_unit</link>
+      <goal>Learn some arithmetic shortcuts to quickly change the values of variables, and get to know the for loop — another way to create repeating code.</goal>
+      <author>Rakhim Davletkaliyev</author>
+      <pubDate>Tue, 17 Jan 2017 17:54:44 +0000</pubDate>
+    </item>
+    <item>
+      <title>Strings / Intro to Programming</title>
+      <link>https://en.hexlet.io/courses/intro_to_programming/lessons/strings/theory_unit</link>
+      <goal>Get to know text data, strings and learn to manipulate them: glue together or take apart.</goal>
+      <author>Rakhim Davletkaliyev</author>
+      <pubDate>Fri, 13 Jan 2017 21:04:15 +0000</pubDate>
+    </item>
+    <item>
+      <title>Variables and repetitions / Intro to Programming</title>
+      <link>https://en.hexlet.io/courses/intro_to_programming/lessons/while/theory_unit</link>
+      <goal>Learn about variables and a way of repeating code with loops. Understand the important distinction between declarative and imperative programming.</goal>
+      <author>Rakhim Davletkaliyev</author>
+      <pubDate>Wed, 11 Jan 2017 10:23:13 +0000</pubDate>
+    </item>
+    <item>
+      <title>Iterative process and not being lazy / Intro to Programming</title>
+      <link>https://en.hexlet.io/courses/intro_to_programming/lessons/iterative/theory_unit</link>
+      <goal>Recursion is great, but the plain recursive process is not too efficient. Learn about an alternative way to compute recursively.</goal>
+      <author>Rakhim Davletkaliyev</author>
+      <pubDate>Sat, 31 Dec 2016 10:11:13 +0000</pubDate>
+    </item>
+    <item>
+      <title>Recursion: when function calls itself / Intro to Programming</title>
+      <link>https://en.hexlet.io/courses/intro_to_programming/lessons/recursion/theory_unit</link>
+      <goal>Wrap your head around one very powerful and extremely important concept in programming — recursion.</goal>
+      <author>Rakhim Davletkaliyev</author>
+      <pubDate>Wed, 28 Dec 2016 11:26:01 +0000</pubDate>
+    </item>
+  </channel>
+</rss>
