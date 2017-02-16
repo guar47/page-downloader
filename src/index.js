@@ -6,7 +6,7 @@ import axios from 'axios';
 import path from 'path';
 import cheerio from 'cheerio';
 
-const nameGenerator = (address, type) => {
+const generateName = (address, type) => {
   const parsedURL = url.parse(address);
   let newName = `${parsedURL.hostname.replace(/[^0-9a-z]/gi, '-')}${parsedURL.pathname.replace(/\//g, '-')}`;
   switch (type) {
@@ -26,13 +26,13 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
   const normalizeDomainName = `${url.parse(address).protocol}//${url.parse(address).host}`;
   const responseData = htmlResponse.data;
   const $ = cheerio.load(responseData);
-  const normalizeFileName = nameGenerator(address, 'html');
+  const normalizeFileName = generateName(address, 'html');
   const hrefs = $('link').map((i, elem) => $(elem).attr('href')).get();
   const scripts = $('script[src]').map((i, elem) => $(elem).attr('src')).get();
   const links = [...hrefs, ...scripts];
 
   if (links.length > 0) {
-    const normalizeFolderName = nameGenerator(address, 'folder');
+    const normalizeFolderName = generateName(address, 'folder');
     const normalizeFolderPath = path.join(outputDir, normalizeFolderName);
     fs.mkdirSync(normalizeFolderPath);
     return Promise.all(links.map((link) => {
@@ -44,7 +44,7 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
       } else {
         linkEdit = link;
       }
-      const normalizeSubFileName = nameGenerator(linkEdit);
+      const normalizeSubFileName = generateName(linkEdit);
       const normalizeFilePath = path.join(normalizeFolderPath, normalizeSubFileName);
       const normalizeFileRelPath = path.join(normalizeFolderName, normalizeSubFileName);
       $(`link[href='${link}']`).attr('href', normalizeFileRelPath);
