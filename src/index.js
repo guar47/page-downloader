@@ -25,7 +25,8 @@ const generateName = (address, type) => {
 
 const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlResponse) => {
   const tmpDir = os.tmpdir();
-  const domainName = `${url.parse(address).protocol}//${url.parse(address).host}`;
+  const domainName = url.format(url.parse(address).protocol, url.parse(address).host);
+  console.log(domainName);
   const responseData = htmlResponse.data;
   const $ = cheerio.load(responseData);
   const newFileName = generateName(address, 'html');
