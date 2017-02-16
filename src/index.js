@@ -2,6 +2,7 @@
 
 import url from 'url';
 import fs from 'fs';
+import os from 'os';
 import axios from 'axios';
 import path from 'path';
 import cheerio from 'cheerio';
@@ -23,6 +24,7 @@ const generateName = (address, type) => {
 };
 
 const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlResponse) => {
+  const tmpDir = os.tmpdir();
   const domainName = `${url.parse(address).protocol}//${url.parse(address).host}`;
   const responseData = htmlResponse.data;
   const $ = cheerio.load(responseData);
@@ -33,7 +35,7 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
 
   if (links.length > 0) {
     const newFolderName = generateName(address, 'folder');
-    const newFolderPath = path.join(outputDir, newFolderName);
+    const newFolderPath = path.join(tmpDir, newFolderName);
     fs.mkdirSync(newFolderPath);
     return Promise.all(links.map((link) => {
       let linkEdit = '';
@@ -55,7 +57,9 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
         fs.writeFileSync(newFilePath, response.data, 'binary');
       });
     })).then(() => {
-      fs.writeFileSync(path.join(outputDir, newFileName), $.html());
+      fs.writeFileSync(path.join(tmpDir, newFileName), $.html());
+      fs.renameSync(path.join(tmpDir, newFileName), path.join(outputDir, newFileName));
+      fs.renameSync(path.join(tmpDir, newFolderName), path.join(outputDir, newFolderName));
     });
   }
 });
