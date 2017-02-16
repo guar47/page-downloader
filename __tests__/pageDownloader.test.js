@@ -9,7 +9,7 @@ import pageLoader from '../src/';
 const htmlbody = fs.readFileSync(path.join('__tests__', '__fixtures__', 'hexlet-io-courses.html'), 'utf8');
 const htmlbodyAfterSubst = fs.readFileSync(path.join('__tests__', '__fixtures__', 'hexlet-io-courses_subst.html'), 'utf8');
 const address = 'http://localhost/testpath';
-const tmpDir = fs.mkdtempSync(os.tmpdir());
+const tmpDir = os.tmpdir();
 
 beforeEach(() => {
   nock('http://localhost')
