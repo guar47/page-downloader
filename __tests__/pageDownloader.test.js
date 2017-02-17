@@ -21,7 +21,7 @@ beforeAll(() => {
 
 test('main html download checker', (done) => {
   const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
-  console.log(tmpDir);
+  console.log(path.resolve(os.tmpdir()));
   pageLoader(address, tmpDir).then(() => {
     const mainFile = path.join(tmpDir, 'localhost-testpath.html');
     const files = fs.readdirSync(path.join(tmpDir, 'localhost-testpath_files'));
