@@ -9,5 +9,7 @@ commander
   .arguments('<address>')
   .option('-o, --output [dir]', 'Directory for download')
   .action(address =>
-  pageLoader(address, commander.output))
+  pageLoader(address, commander.output)
+  .catch(error => error)
+  .then('Download successfully complete'))
   .parse(process.argv);
