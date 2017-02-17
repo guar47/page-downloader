@@ -7,6 +7,10 @@ import axios from 'axios';
 import path from 'path';
 import cheerio from 'cheerio';
 
+// const errorHandler = (err) => {
+//
+// }
+
 const generateName = (address, type) => {
   const parsedURL = url.parse(address);
   let newName = url.format({
@@ -75,6 +79,6 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
     }).then(() => fs.rename(path.join(tmpDir, newFileName), path.join(outputDir, newFileName)))
       .then(() => fs.rename(path.join(tmpDir, newFolderName), path.join(outputDir, newFolderName)));
   }
-});
+}).catch(error => console.log(error));
 
 export default pageLoader;
