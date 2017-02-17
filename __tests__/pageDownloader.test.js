@@ -10,8 +10,6 @@ const testPath = path.join('__tests__', '__fixtures__');
 const htmlbody = fs.readFileSync(path.join(testPath, 'hexlet-io-courses.html'), 'utf8');
 const subfileBody = fs.readFileSync(path.join(testPath, 'lessons.rss'), 'utf8');
 const address = 'http://localhost/testpath';
-const tmpDir = fs.mkdtempSync(os.tmpdir());
-console.log(`Current tml directory - ${tmpDir}`);
 
 beforeAll(() => {
   nock('http://localhost')
@@ -22,6 +20,8 @@ beforeAll(() => {
 });
 
 test('main html download checker', (done) => {
+  const tmpDir = fs.mkdtempSync(os.tmpdir());
+  console.log(`Current tml directory - ${tmpDir}`);
   pageLoader(address, tmpDir).then(() => {
     const mainFile = path.join(tmpDir, 'localhost-testpath.html');
     const files = fs.readdirSync(path.join(tmpDir, 'localhost-testpath_files'));
