@@ -30,7 +30,7 @@
     "commander": "*",
     "axios": "*",
     "cheerio": "*",
-    "mz": "*"
+    "fs-promise": "*"
   },
   "devDependencies": {
     "babel-cli": "*",

@@ -1,41 +1,34 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<link rel="stylesheet" media="all" href="https://cdn2.hexlet.io/assets/application-f7ef9ab40200773689e703b1cc34e56ab0ad811a10a652f9b9d4e5dacc71f43a.css" />
-<title>Courses - Hexlet.io</title>
-<link rel="shortcut icon" type="image/x-icon" href="//cdn2.hexlet.io/assets/icons/default/favicon-8fa102c058afb01de5016a155d7db433283dc7e08ddc3c4d1aef527c1b8502b6.ico" />
-<link rel="shortcut icon" type="image/png" href="https://cdn2.hexlet.io/assets/icons/default/favicon-196x196-422632c0ef41e9b13dd7ea89f1764e860d225ca3c20502b966a00c0039409a75.png" sizes="196x196" />
-<script>
-  if (!window.Rollbar) {
-    Rollbar = {
-      error: function() {
-      },
-      configure: function() {
-      }
-    }
-  }
-  Rollbar.configure({
-    payload: {
-      person: gon.current_user
-    }
-  });
-</script>
+    <link rel="stylesheet" media="all" href="http://localhost/assets/application.css" />
+    <title>Courses - Hexlet.io</title>
+    <link rel="shortcut icon" type="image/x-icon" href="//localhost/assets/icons/default/favicon.ico" />
+    <script>
+        if (!window.Rollbar) {
+            Rollbar = {
+                error: function() {},
+                configure: function() {}
+            }
+        }
+        Rollbar.configure({
+            payload: {
+                person: gon.current_user
+            }
+        });
+    </script>
 </head>
+
 <body>
-<div class='col-lg-3 col-sm-6 col-xs-12 mt-1'>
-<div class='h6'>Learn more</div>
-</div>
-<div class='col-lg-2 col-sm-6 col-xs-12 mt-1'>
-<ul class='nav mt-2'>
-<li class='nav-item'><a class="nav-link" href="/community">Community</a></li>
-<li class='nav-item'><a class="nav-link" href="https://en.hexlet.io/feedback">Ideas and feedback</a></li>
-</ul>
-</div>
-</div>
-</div>
-<footer>
-  <script src="/lessons.rss" async="async" crossorigin="anonymous" onload="onApplicationJsLoaded(this)" onerror="onScriptLoadError(this)"></script>
-</footer>
+    <ul class='nav mt-2'>
+        <li class='nav-item'><a class="nav-link" href="/community">Community</a></li>
+        <li class='nav-item'><a class="nav-link" href="https://en.hexlet.io/feedback">Ideas and feedback</a></li>
+    </ul>
+    <footer>
+        <script src="/lessons.rss" async="async" crossorigin="anonymous" onload="onApplicationJsLoaded(this)" onerror="onScriptLoadError(this)"></script>
+    </footer>
 
 </body>
+
 </html>

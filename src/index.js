@@ -1,15 +1,11 @@
 /* eslint-disable consistent-return */
 
 import url from 'url';
-import fs from 'mz/fs';
+import fs from 'fs-promise';
 import os from 'os';
 import axios from 'axios';
 import path from 'path';
 import cheerio from 'cheerio';
-
-// const errorHandler = (err) => {
-//
-// }
 
 const generateName = (address, type) => {
   const parsedURL = url.parse(address);
@@ -39,7 +35,7 @@ const changeAttributes = (obj, atrArray) => {
 
 const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlResponse) => {
   const parsedURL = url.parse(address);
-  const tmpDir = os.tmpdir();
+  const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
   const responseData = htmlResponse.data;
   const $ = cheerio.load(responseData);
   const newFileName = generateName(address, 'html');
@@ -49,7 +45,7 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
   if (links.length > 0) {
     const newFolderName = generateName(address, 'folder');
     const newFolderPath = path.join(tmpDir, newFolderName);
-    return fs.mkdir(newFolderPath).then(() => Promise.all(links.map((link) => {
+    return fs.mkdirp(newFolderPath).then(() => Promise.all(links.map((link) => {
       let linkEdit = '';
       if (link[0] === '/' && link[1] === '/') {
         linkEdit = `http:${link}`;
@@ -77,8 +73,15 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
       const newHtml = changeAttributes($, data);
       return fs.writeFile(path.join(tmpDir, newFileName), newHtml.html());
     }).then(() => fs.rename(path.join(tmpDir, newFileName), path.join(outputDir, newFileName)))
-      .then(() => fs.rename(path.join(tmpDir, newFolderName), path.join(outputDir, newFolderName)));
+      .catch(() => Promise.reject(`Write Error. Path '${outputDir}' does not exist`))
+      .then(() => fs.rename(path.join(tmpDir, newFolderName), path.join(outputDir, newFolderName)))
+      .then(() => Promise.resolve('Download completed successfully'));
   }
-}).catch(error => console.log(error));
+}).catch((err) => {
+  if (err.response) {
+    return Promise.reject(`Download Error. ${err.message} on url ${err.config.url}`);
+  } return Promise.reject(err);
+});
+
 
 export default pageLoader;

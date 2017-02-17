@@ -10,6 +10,6 @@ commander
   .option('-o, --output [dir]', 'Directory for download')
   .action(address =>
   pageLoader(address, commander.output)
-  .catch(error => error)
-  .then('Download successfully complete'))
+  .then(result => console.log(result))
+  .catch(error => console.log(error)))
   .parse(process.argv);
