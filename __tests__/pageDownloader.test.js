@@ -21,16 +21,14 @@ beforeAll(() => {
 
 test('main html download checker', (done) => {
   const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
-  console.log(path.resolve(os.tmpdir()));
   pageLoader(address, tmpDir).then(() => {
     const mainFile = path.join(tmpDir, 'localhost-testpath.html');
     const files = fs.readdirSync(path.join(tmpDir, 'localhost-testpath_files'));
     const subFile = path.join(tmpDir, 'localhost-testpath_files', 'localhost-lessons.rss');
-    fs.readFile(mainFile, 'utf8').then((mainFileContent) => {
-      fs.readFile(path.join('__tests__', '__fixtures__', 'hexlet-io-courses_subst.html'), 'utf8')
-      .then((templateContent) => {
-        expect(mainFileContent).toBe(templateContent);
-      });
+    Promise.all([fs.readFile(mainFile, 'utf8'),
+      fs.readFile(path.join('__tests__', '__fixtures__', 'hexlet-io-courses_subst.html'), 'utf8')])
+    .then((content) => {
+      expect(content[0]).toBe(content[1]);
     }).then(() => {
       expect(fs.exists(subFile)).toBeTruthy();
       expect(files.includes('localhost-lessons.rss')).toBeTruthy();

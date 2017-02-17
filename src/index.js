@@ -45,8 +45,7 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
   if (links.length > 0) {
     const newFolderName = generateName(address, 'folder');
     const newFolderPath = path.join(tmpDir, newFolderName);
-    fs.mkdir(newFolderPath);
-    return Promise.all(links.map((link) => {
+    return fs.mkdir(newFolderPath).then(() => Promise.all(links.map((link) => {
       let linkEdit = '';
       if (link[0] === '/' && link[1] === '/') {
         linkEdit = `http:${link}`;
@@ -70,7 +69,7 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
         }
         return { selector: `script[src='${link}']`, attr: 'src', newValue: newFileRelPath };
       }));
-    })).then((data) => {
+    }))).then((data) => {
       const newHtml = changeAttributes($, data);
       return fs.writeFile(path.join(tmpDir, newFileName), newHtml.html());
     }).then(() => fs.rename(path.join(tmpDir, newFileName), path.join(outputDir, newFileName)))
