@@ -27,7 +27,7 @@ const generateName = (address, type) => {
 };
 
 const changeAttributes = (obj, atrArray) => {
-  const newHtml = obj;
+  const newHtml = obj.clone();
   atrArray.map(atrributes =>
     newHtml(atrributes.selector).attr(atrributes.attr, atrributes.newValue));
   return newHtml;
