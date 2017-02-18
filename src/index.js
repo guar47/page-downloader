@@ -45,7 +45,9 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
   if (links.length > 0) {
     const newFolderName = generateName(address, 'folder');
     const newFolderPath = path.join(tmpDir, newFolderName);
-    return fs.mkdirp(newFolderPath).then(() => Promise.all(links.map((link) => {
+    return fs.mkdirp(newFolderPath)
+    .catch(err => Promise.reject(err))
+    .then(() => Promise.all(links.map((link) => {
       let linkEdit = '';
       if (link[0] === '/' && link[1] === '/') {
         linkEdit = `http:${link}`;
@@ -63,18 +65,33 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
       const newFileRelPath = path.join(newFolderName, newSubFileName);
       return axios.get(linkEdit, {
         responseType: 'arraybuffer',
-      }).then(response => fs.writeFile(newFilePath, response.data, 'binary').then(() => {
+      }).catch(err => Promise.reject(err))
+      .then(response => fs.writeFile(newFilePath, response.data, 'binary')
+      .catch(err => Promise.reject(err))
+      .then(() => {
         if ($(`link[href='${link}']`).attr('href')) {
           return { selector: `link[href='${link}']`, attr: 'href', newValue: newFileRelPath };
         }
         return { selector: `script[src='${link}']`, attr: 'src', newValue: newFileRelPath };
       }));
-    }))).then((data) => {
+    }))).catch(err => Promise.reject(err))
+    .then((data) => {
       const newHtml = changeAttributes($, data);
       return fs.writeFile(path.join(tmpDir, newFileName), newHtml.html());
-    }).then(() => fs.rename(path.join(tmpDir, newFileName), path.join(outputDir, newFileName)))
-      .catch(() => Promise.reject(`Write Error. Path '${outputDir}' does not exist`))
-      .then(() => fs.rename(path.join(tmpDir, newFolderName), path.join(outputDir, newFolderName)))
+    })
+    .catch(err => Promise.reject(err))
+      .then(() => fs.stat(outputDir))
+      .catch((err) => {
+        if (err.code === 'ENOENT') {
+          return Promise.reject(`Write Error. Path '${outputDir}' does not exist`);
+        } return Promise.reject(err);
+      })
+      .then(() => fs.copy(path.join(tmpDir, newFileName), path.join(outputDir, newFileName)))
+      .catch(err => Promise.reject(err))
+      .then(() => fs.copy(path.join(tmpDir, newFolderName), path.join(outputDir, newFolderName)))
+      .catch(err => Promise.reject(err))
+      .then(() => fs.remove(path.join(tmpDir)))
+      .catch(err => Promise.reject(err))
       .then(() => Promise.resolve('Download completed successfully'));
   }
 }).catch((err) => {

@@ -15,17 +15,20 @@ beforeEach(() => {
     .reply(200, fs.readFileSync(path.join(testPath, 'hexlet-io-courses.html'), 'utf8'))
     .get('/lessons.rss')
     .reply(200, fs.readFileSync(path.join(testPath, 'lessons.rss'), 'utf8'))
-    .get('/error404')
-    .reply(404)
     .get('/assets/application.css')
     .reply(200, fs.readFileSync(path.join(testPath, 'application.css'), 'utf8'))
     .get('/assets/icons/default/favicon.ico')
-    .reply(200, fs.readFileSync(path.join(testPath, 'favicon.ico'), 'binary'));
+    .reply(200, fs.readFileSync(path.join(testPath, 'favicon.ico'), 'binary'))
+    .get('/error404')
+    .reply(404)
+    .get('/bodyFakeJS')
+    .reply(200, '<script src="http://localhost/fakeJS.js"></script>')
+    .get('/fakeJS.js')
+    .reply(403);
 });
 
 test('main html download checker', (done) => {
   const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
-  console.log(tmpDir);
   pageLoader('http://localhost/testpath', tmpDir).then((result) => {
     const mainFile = path.join(tmpDir, 'localhost-testpath.html');
     const files = fs.readdirSync(path.join(tmpDir, 'localhost-testpath_files'));
@@ -42,10 +45,17 @@ test('main html download checker', (done) => {
       });
   });
 });
-test('network error checker', (done) => {
+test('main file network error checker', (done) => {
   const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
   pageLoader('http://localhost/error404', tmpDir).catch((err) => {
     expect(err).toBe(('Download Error. Request failed with status code 404 on url http://localhost/error404'));
+    done();
+  });
+});
+test('subfiles network error checker', (done) => {
+  const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
+  pageLoader('http://localhost/bodyFakeJS', tmpDir).catch((err) => {
+    expect(err).toBe(('Download Error. Request failed with status code 403 on url http://localhost/fakeJS.js'));
     done();
   });
 });
