@@ -6,7 +6,7 @@ import os from 'os';
 import axios from 'axios';
 import path from 'path';
 import cheerio from 'cheerio';
-import multispinner from 'multispinner';
+// import multispinner from 'multispinner';
 
 const generateName = (address, type) => {
   const parsedURL = url.parse(address);
