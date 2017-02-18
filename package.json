@@ -31,7 +31,8 @@
     "axios": "*",
     "cheerio": "*",
     "fs-promise": "*",
-    "multispinner": "*"
+    "multispinner": "*",
+    "colors": "*"
   },
   "devDependencies": {
     "babel-cli": "*",

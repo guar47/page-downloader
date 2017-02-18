@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import commander from 'commander';
+import colors from 'colors';
 import pageLoader from '../';
 
 commander
@@ -11,5 +12,5 @@ commander
   .action(address =>
   pageLoader(address, commander.output)
   .then(result => console.log(result))
-  .catch(error => console.log(error)))
+  .catch(error => console.log(error.red)))
   .parse(process.argv);

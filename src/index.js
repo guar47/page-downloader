@@ -6,7 +6,7 @@ import os from 'os';
 import axios from 'axios';
 import path from 'path';
 import cheerio from 'cheerio';
-// import multispinner from 'multispinner';
+import Multispinner from 'multispinner';
 
 const generateName = (address, type) => {
   const parsedURL = url.parse(address);
@@ -35,6 +35,10 @@ const changeAttributes = (obj, atrArray) => {
 };
 
 const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlResponse) => {
+  const spinner = new Multispinner(
+    [address],
+    { preText: 'Downloading' },
+  );
   const parsedURL = url.parse(address);
   const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
   const responseData = htmlResponse.data;
@@ -48,26 +52,37 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
     const newFolderPath = path.join(tmpDir, newFolderName);
     return fs.mkdirp(newFolderPath)
     .catch(err => Promise.reject(err))
-    .then(() => Promise.all(links.map((link) => {
-      let linkEdit = '';
-      if (link[0] === '/' && link[1] === '/') {
-        linkEdit = `http:${link}`;
-      } else if (link[0] === '/') {
-        linkEdit = url.format({
-          protocol: parsedURL.protocol,
-          hostname: parsedURL.hostname,
-          pathname: link,
-        });
-      } else {
-        linkEdit = link;
-      }
-      const newSubFileName = generateName(linkEdit);
-      const newFilePath = path.join(newFolderPath, newSubFileName);
-      const newFileRelPath = path.join(newFolderName, newSubFileName);
-      return axios.get(linkEdit, {
-        responseType: 'arraybuffer',
-      }).catch(err => Promise.reject(err))
+    .then(() => {
+      const multispinner = new Multispinner(
+        [...new Set(links)],
+        { preText: 'Downloading' },
+      );
+      return Promise.all(links.map((link) => {
+        let linkEdit = '';
+        if (link[0] === '/' && link[1] === '/') {
+          linkEdit = `http:${link}`;
+        } else if (link[0] === '/') {
+          linkEdit = url.format({
+            protocol: parsedURL.protocol,
+            hostname: parsedURL.hostname,
+            pathname: link,
+          });
+        } else {
+          linkEdit = link;
+        }
+        const newSubFileName = generateName(linkEdit);
+        const newFilePath = path.join(newFolderPath, newSubFileName);
+        const newFileRelPath = path.join(newFolderName, newSubFileName);
+        return axios.get(linkEdit, {
+          responseType: 'arraybuffer',
+        }).catch((err) => {
+          multispinner.error(link);
+          spinner.error(address);
+          return Promise.reject(err);
+        })
       .then(response => fs.writeFile(newFilePath, response.data, 'binary')
+      .catch(err => Promise.reject(err))
+      .then(() => multispinner.success(link))
       .catch(err => Promise.reject(err))
       .then(() => {
         if ($(`link[href='${link}']`).attr('href')) {
@@ -75,9 +90,11 @@ const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlRe
         }
         return { selector: `script[src='${link}']`, attr: 'src', newValue: newFileRelPath };
       }));
-    }))).catch(err => Promise.reject(err))
+      }));
+    }).catch(err => Promise.reject(err))
     .then((data) => {
       const newHtml = changeAttributes($, data);
+      spinner.success(address);
       return fs.writeFile(path.join(tmpDir, newFileName), newHtml.html());
     })
     .catch(err => Promise.reject(err))
