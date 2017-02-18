@@ -30,7 +30,8 @@
     "commander": "*",
     "axios": "*",
     "cheerio": "*",
-    "fs-promise": "*"
+    "fs-promise": "*",
+    "multispinner": "*"
   },
   "devDependencies": {
     "babel-cli": "*",

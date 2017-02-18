@@ -8,8 +8,11 @@ import pageLoader from '../src/';
 
 const testPath = path.join('__tests__', '__fixtures__');
 
-beforeEach(() => {
+beforeAll(() => {
   nock.disableNetConnect();
+});
+
+beforeEach(() => {
   nock('http://localhost')
     .get('/testpath')
     .reply(200, fs.readFileSync(path.join(testPath, 'hexlet-io-courses.html'), 'utf8'))
