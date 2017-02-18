@@ -11,6 +11,6 @@ commander
   .option('-o, --output [dir]', 'Directory for download')
   .action(address =>
   pageLoader(address, commander.output)
-  .then(result => console.log(result))
-  .catch(error => console.log(error.red)))
+  .then(result => console.log(colors.green(result)))
+  .catch(error => console.log(colors.red(error))))
   .parse(process.argv);
