@@ -30,41 +30,48 @@ beforeEach(() => {
     .reply(403);
 });
 
-test('main html download checker', (done) => {
+test('main html download checker', async (done) => {
   const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
-  pageLoader('http://localhost/testpath', tmpDir).then((result) => {
-    const mainFile = path.join(tmpDir, 'localhost-testpath.html');
-    const files = fs.readdirSync(path.join(tmpDir, 'localhost-testpath_files'));
-    const subFile = path.join(tmpDir, 'localhost-testpath_files', 'localhost-lessons.rss');
-    Promise.all([fs.readFile(mainFile, 'utf8'),
-      fs.readFile(path.join('__tests__', '__fixtures__', 'hexlet-io-courses_subst.html'), 'utf8')])
-      .then((content) => {
-        expect(content[0]).toBe(content[1]);
-      }).then(() => {
-        expect(fs.access(subFile)).toBeTruthy();
-        expect(files.includes('localhost-lessons.rss')).toBeTruthy();
-        expect(result).toBe('Download completed successfully');
-        done();
-      });
-  });
+  const mainFile = path.join(tmpDir, 'localhost-testpath.html');
+  const subFile = path.join(tmpDir, 'localhost-testpath_files', 'localhost-lessons.rss');
+  const [result, files, expectContent, toBeContent] = await Promise.all([
+    await pageLoader('http://localhost/testpath', tmpDir),
+    await fs.readdir(path.join(tmpDir, 'localhost-testpath_files')),
+    await fs.readFile(mainFile, 'utf8'),
+    await fs.readFile(path.join('__tests__', '__fixtures__', 'hexlet-io-courses_subst.html'), 'utf8'),
+  ]);
+  expect(expectContent).toBe(toBeContent);
+  expect(fs.access(subFile)).toBeTruthy();
+  expect(files.includes('localhost-lessons.rss')).toBeTruthy();
+  expect(result).toBe('Download completed successfully');
+  done();
 });
-test('main file network error checker', (done) => {
+
+test('main file network error checker', async (done) => {
   const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
-  pageLoader('http://localhost/error404', tmpDir).catch((err) => {
-    expect(err).toBe(('Download Error. Request failed with status code 404 on url http://localhost/error404'));
-    done();
-  });
+  try {
+    await pageLoader('http://localhost/error404', tmpDir);
+  } catch (error) {
+    expect(error).toBe('Download Error. Request failed with status code 404 on url http://localhost/error404');
+  }
+  done();
 });
-test('subfiles network error checker', (done) => {
+
+test('subfiles network error checker', async (done) => {
   const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
-  pageLoader('http://localhost/bodyFakeJS', tmpDir).catch((err) => {
-    expect(err).toBe(('Download Error. Request failed with status code 403 on url http://localhost/fakeJS.js'));
-    done();
-  });
+  try {
+    await pageLoader('http://localhost/bodyFakeJS', tmpDir);
+  } catch (error) {
+    expect(error).toBe(('Download Error. Request failed with status code 403 on url http://localhost/fakeJS.js'));
+  }
+  done();
 });
-test('folder exist error checker', (done) => {
-  pageLoader('http://localhost/testpath', path.join(testPath, 'fakeFolder')).catch((err) => {
-    expect(err).toBe(('Write Error. Path \'__tests__/__fixtures__/fakeFolder\' does not exist'));
-    done();
-  });
+
+test('folder exist error checker', async (done) => {
+  try {
+    await pageLoader('http://localhost/testpath', path.join(testPath, 'fakeFolder'));
+  } catch (error) {
+    expect(error).toBe(('Write Error. Path \'__tests__/__fixtures__/fakeFolder\' does not exist'));
+  }
+  done();
 });

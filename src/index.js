@@ -34,89 +34,64 @@ const changeAttributes = (obj, atrArray) => {
   return newHtml;
 };
 
-const pageLoader = (address, outputDir = '.') => axios.get(address).then((htmlResponse) => {
-  const spinner = new Multispinner(
-    [address],
-    { preText: 'Downloading' },
-  );
-  const parsedURL = url.parse(address);
-  const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
-  const responseData = htmlResponse.data;
-  const $ = cheerio.load(responseData);
-  const newFileName = generateName(address, 'html');
-  const hrefs = $('link').map((i, elem) => $(elem).attr('href')).get();
-  const scripts = $('script[src]').map((i, elem) => $(elem).attr('src')).get();
-  const links = [...hrefs, ...scripts];
-  if (links.length > 0) {
-    const newFolderName = generateName(address, 'folder');
-    const newFolderPath = path.join(tmpDir, newFolderName);
-    return fs.mkdirp(newFolderPath)
-    .catch(err => Promise.reject(err))
-    .then(() => {
-      const multispinner = new Multispinner(
-        [...new Set(links)],
-        { preText: 'Downloading' },
-      );
-      return Promise.all(links.map((link) => {
+const pageLoader = async (address, outputDir = '.') => {
+  try {
+    const htmlResponse = await axios.get(address);
+    const tmpDir = fs.mkdtempSync(`${os.tmpdir()}${path.sep}`);
+    const $ = cheerio.load(htmlResponse.data);
+    const newFileName = generateName(address, 'html');
+    const hrefs = $('link').map((i, elem) => $(elem).attr('href')).get();
+    const scripts = $('script[src]').map((i, elem) => $(elem).attr('src')).get();
+    const links = [...hrefs, ...scripts];
+    const multispinner = new Multispinner([...new Set(links)], { preText: 'Downloading' });  // SPINNER!!!!!!!!!
+    if (links.length > 0) {
+      const newFolderName = generateName(address, 'folder');
+      const newFolderPath = path.join(tmpDir, newFolderName);
+      await fs.mkdirp(newFolderPath);
+      const data = await Promise.all(links.map(async (link) => {
         let linkEdit = '';
         if (link[0] === '/' && link[1] === '/') {
           linkEdit = `http:${link}`;
         } else if (link[0] === '/') {
-          linkEdit = url.format({
-            protocol: parsedURL.protocol,
-            hostname: parsedURL.hostname,
-            pathname: link,
-          });
+          linkEdit = url.format({ protocol: url.parse(address).protocol,
+            hostname: url.parse(address).hostname,
+            pathname: link });
         } else {
           linkEdit = link;
         }
         const newSubFileName = generateName(linkEdit);
         const newFilePath = path.join(newFolderPath, newSubFileName);
         const newFileRelPath = path.join(newFolderName, newSubFileName);
-        return axios.get(linkEdit, {
-          responseType: 'arraybuffer',
-        }).catch((err) => {
-          multispinner.error(link);
-          spinner.error(address);
-          return Promise.reject(err);
-        })
-      .then(response => fs.writeFile(newFilePath, response.data, 'binary')
-      .catch(err => Promise.reject(err))
-      .then(() => multispinner.success(link))
-      .catch(err => Promise.reject(err))
-      .then(() => {
+        try {
+          const response = await axios.get(linkEdit, { responseType: 'arraybuffer' });
+          await fs.writeFile(newFilePath, response.data, 'binary');
+          await multispinner.success(link); // SPINNER!!!!!!!!!
+        } catch (err) {
+          if (err.response) {
+            await multispinner.error(link); // SPINNER!!!!!!!!!
+          }
+        }
         if ($(`link[href='${link}']`).attr('href')) {
           return { selector: `link[href='${link}']`, attr: 'href', newValue: newFileRelPath };
         }
         return { selector: `script[src='${link}']`, attr: 'src', newValue: newFileRelPath };
       }));
-      }));
-    }).catch(err => Promise.reject(err))
-    .then((data) => {
       const newHtml = changeAttributes($, data);
-      spinner.success(address);
-      return fs.writeFile(path.join(tmpDir, newFileName), newHtml.html());
-    })
-    .catch(err => Promise.reject(err))
-      .then(() => fs.stat(outputDir))
-      .catch((err) => {
-        if (err.code === 'ENOENT') {
-          return Promise.reject(`Write Error. Path '${outputDir}' does not exist`);
-        } return Promise.reject(err);
-      })
-      .then(() => fs.copy(path.join(tmpDir, newFileName), path.join(outputDir, newFileName)))
-      .catch(err => Promise.reject(err))
-      .then(() => fs.copy(path.join(tmpDir, newFolderName), path.join(outputDir, newFolderName)))
-      .catch(err => Promise.reject(err))
-      .then(() => fs.remove(path.join(tmpDir)))
-      .catch(err => Promise.reject(err))
-      .then(() => Promise.resolve('Download completed successfully'));
+      await fs.writeFile(path.join(tmpDir, newFileName), newHtml.html());
+      await fs.stat(outputDir);
+      await fs.copy(path.join(tmpDir, newFileName), path.join(outputDir, newFileName));
+      await fs.copy(path.join(tmpDir, newFolderName), path.join(outputDir, newFolderName));
+      await fs.remove(path.join(tmpDir));
+      return Promise.resolve('Download completed successfully');
+    }
+  } catch (err) {
+    if (err.response) {
+      return Promise.reject(`Download Error. ${err.message} on url ${err.config.url}`);
+    } else if (err.code === 'ENOENT') {
+      return Promise.reject(`Write Error. Path '${outputDir}' does not exist`);
+    }
+    return Promise.reject(err);
   }
-}).catch((err) => {
-  if (err.response) {
-    return Promise.reject(`Download Error. ${err.message} on url ${err.config.url}`);
-  } return Promise.reject(err);
-});
-
+};
 
 export default pageLoader;
