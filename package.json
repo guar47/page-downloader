@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guar47/project-lvl3-s14.git"
+    "url": "git+https://github.com/guar47/pageDownloader.git"
   },
   "author": "Dmitrii Pashutskii",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/guar47/project-lvl3-s14/issues"
+    "url": "https://github.com/guar47/pageDownloader/issues"
   },
-  "homepage": "https://github.com/guar47/project-lvl3-s14#readme",
+  "homepage": "https://github.com/guar47/pageDownloader#readme",
   "dependencies": {
     "commander": "*",
     "axios": "*",

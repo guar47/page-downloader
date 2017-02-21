@@ -65,10 +65,10 @@ const pageLoader = async (address, outputDir = '.') => {
         try {
           const response = await axios.get(linkEdit, { responseType: 'arraybuffer' });
           await fs.writeFile(newFilePath, response.data, 'binary');
-          await multispinner.success(link); // SPINNER!!!!!!!!!
+          multispinner.success(link); // SPINNER!!!!!!!!!
         } catch (err) {
           if (err.response) {
-            await multispinner.error(link); // SPINNER!!!!!!!!!
+            multispinner.error(link); // SPINNER!!!!!!!!!
           }
         }
         if ($(`link[href='${link}']`).attr('href')) {
